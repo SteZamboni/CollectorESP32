@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SensorData.h"
+#include <time.h>
 
 
 using namespace std;
@@ -14,9 +15,14 @@ SensorData::~SensorData() {
 }
 
 void SensorData::printData() {
+	time_t rawtime = seconds;
+	struct tm * timeinfo;
+
+	timeinfo = localtime(&rawtime);
+
 	cout << "PACKET TYPE=PROBE CHAN=" << channel << " RSSI=" << RSSI
 		<< " ADDR=" << source << " SEQ=" << sequence_ctrl
-		<< " Time_sec=" << seconds << " Time_usec=" << useconds << " SSID=" << SSID << endl;
+		<< " Time= " << asctime(timeinfo) << " SSID=" << SSID << endl;
 	return;
 }
 
